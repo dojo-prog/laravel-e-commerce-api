@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('province');
             $table->string('postal_code');
-            $table->string('country');
+            $table->string('country')->default('Philippines');
             $table->boolean('is_default');
             $table->timestamps();
         });
