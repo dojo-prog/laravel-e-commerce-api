@@ -52,8 +52,8 @@ return new class extends Migration
 
         DB::statement('
             ALTER TABLE coupons 
-            ADD CONSTRAINT coupons_order_amount_chk
-            CHECK (order_amount >= 0);
+            ADD CONSTRAINT coupons_minimum_order_amount_chk
+            CHECK (minimum_order_amount >= 0);
         ');
 
         DB::statement('

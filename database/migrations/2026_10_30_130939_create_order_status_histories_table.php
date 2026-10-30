@@ -25,7 +25,7 @@ return new class extends Migration
                 'delivered', 
                 'cancelled'
             ]);
-            $table->enum('new', [
+            $table->enum('new_status', [
                 'pending', 
                 'confirmed', 
                 'processing', 
