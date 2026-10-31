@@ -16,12 +16,18 @@ class OrderStatusHistoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'order_id' => $this->order_id,
             'previous_status' => $this->previous_status,
             'new_status' => $this->new_status,
             'notes' => $this->notes,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+
+            'order' => OrderResource::make(
+                $this->whenLoaded('order')
+            ),
+            'user' => UserResource::make(
+                $this->whenLoaded('user')
+            )
         ];
     }
 }
