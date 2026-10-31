@@ -34,7 +34,6 @@ class Product extends Model
         return "PRD-{$nameCode}-{$categoryCode}-{$uniqueSuffix}";
     }
 
-
     protected $fillable = [
         'category_id',
         'description',
@@ -48,7 +47,7 @@ class Product extends Model
     {
         return [
             'price' => 'decimal:2',
-            'stock_quantity' => 'integer'
+            'stock_quantity' => 'integer',
         ];
     }
 
@@ -77,7 +76,7 @@ class Product extends Model
         return $this->belongsToMany(Cart::class, 'cart_items')
             ->using(CartItem::class)
             ->withPivot(['id', 'quantity'])
-            ->withTimestamps();       
+            ->withTimestamps();
     }
 
     public function orders(): BelongsToMany
@@ -86,11 +85,11 @@ class Product extends Model
             ->using(OrderItem::class)
             ->withPivot([
                 'id',
-                'product_name', 
-                'product_sku', 
-                'unit_price', 
-                'quantity', 
-                'subtotal'
+                'product_name',
+                'product_sku',
+                'unit_price',
+                'quantity',
+                'subtotal',
             ])
             ->withTimestamps();
     }
