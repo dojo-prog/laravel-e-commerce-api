@@ -5,7 +5,7 @@ namespace App\Http\Requests\OrderStatusHistory;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexOrderStatusHistorynRequest extends FormRequest
+class IndexOrderStatusHistoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
