@@ -66,7 +66,7 @@ class Order extends Model
 
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Payment::class)->orderBy('attempt_number');
     }
 
     public function statusHistories(): HasMany
