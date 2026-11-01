@@ -10,6 +10,8 @@ class OrderStatusHistory extends Model
 {
     use HasUuids;
 
+    public const UPDATED_AT = null;
+
     protected $fillable = [
         'order_id',
         'previous_status',
