@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 use Override;
 
@@ -22,7 +21,7 @@ class Order extends Model
         });
     }
 
-    public static function generateOrderNumber(): string 
+    public static function generateOrderNumber(): string
     {
         $dateStr = now()->format('Ymd');
         $uniqueSuffix = strtoupper(Str::random(6));
@@ -39,7 +38,7 @@ class Order extends Model
         'discount_amount',
         'total_amount',
         'shipping_address_snapshot',
-        'notes'
+        'notes',
     ];
 
     #[Override]
@@ -52,20 +51,19 @@ class Order extends Model
         ];
     }
 
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function orderItems(): HasMany 
+    public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function payment(): HasOne
+    public function payments(): HasMany
     {
-        return $this->hasOne(Payment::class);
+        return $this->hasMany(Payment::class);
     }
 
     public function statusHistories(): HasMany
@@ -73,7 +71,7 @@ class Order extends Model
         return $this->hasMany(OrderStatusHistory::class);
     }
 
-    public function couponUsages(): HasMany 
+    public function couponUsages(): HasMany
     {
         return $this->hasMany(CouponUsage::class);
     }

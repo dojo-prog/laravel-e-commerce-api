@@ -31,8 +31,8 @@ class OrderResource extends JsonResource
             'orderItems' => OrderItemResource::collection(
                 $this->whenLoaded('orderItems')
             ),
-            'payment' => PaymentResource::make(
-                $this->whenLoaded('payment')
+            'payment_attempts' => PaymentResource::collection(
+                $this->whenLoaded('payments')
             ),
             'statusHistories' => OrderStatusHistoryResource::collection(
                 $this->whenLoaded('statusHistories')
