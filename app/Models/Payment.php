@@ -26,7 +26,7 @@ class Payment extends Model
         return [
             'attempt_number' => 'integer',
             'amount' => 'decimal:2',
-            'paid_at' => 'timestampTz',
+            'paid_at' => 'datetime',
         ];
     }
 
