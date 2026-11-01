@@ -23,8 +23,8 @@ class IndexOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'page' => ['sometimes', 'integer'],
-            'per_page' => ['sometimes', 'integer'],
+            'page' => ['sometimes', 'integer', 'min:1'],
+            'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
             'status' => [
                 'sometimes',
                 'string',
@@ -37,7 +37,7 @@ class IndexOrderRequest extends FormRequest
             ],
             'from' => ['sometimes', 'date'],
             'to' => ['sometimes', 'date'],
-            'order_number' => ['sometimes', 'string'],
+            'order_number' => ['sometimes', 'string', 'max:255'],
             'sort_by' => ['sometimes', 'string', 'in:created_at'],
             'sort_order' => ['sometimes', 'string', 'in:desc,asc'],
         ];
