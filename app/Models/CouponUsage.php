@@ -11,6 +11,8 @@ class CouponUsage extends Pivot
 {
     use HasUuids;
 
+    protected $table = 'coupon_usages';
+
     protected $fillable = [
         'coupon_id',
         'user_id',
@@ -22,7 +24,7 @@ class CouponUsage extends Pivot
     protected function casts()
     {
         return [
-            'discount_amount' => 'decimal:2'
+            'discount_amount' => 'decimal:2',
         ];
     }
 

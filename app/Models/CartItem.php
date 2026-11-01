@@ -11,21 +11,23 @@ class CartItem extends Pivot
 {
     use HasUuids;
 
+    protected $table = 'cart_items';
+
     protected $fillable = [
         'cart_id',
         'product_id',
-        'quantity'
+        'quantity',
     ];
 
     #[Override]
     protected function casts()
     {
         return [
-            'quantity' => 'integer'
+            'quantity' => 'integer',
         ];
     }
 
-    public function cart(): BelongsTo 
+    public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
     }
