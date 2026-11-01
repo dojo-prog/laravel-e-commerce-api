@@ -39,6 +39,8 @@ class Order extends Model
         'total_amount',
         'shipping_address_snapshot',
         'notes',
+        'idempotency_key',
+        'checkout_request_hash',
     ];
 
     #[Override]
@@ -48,6 +50,7 @@ class Order extends Model
             'shipping_fee' => 'decimal:2',
             'discount_amount' => 'decimal:2',
             'total_amount' => 'decimal:2',
+            'shipping_address_snapshot' => 'array',
         ];
     }
 
