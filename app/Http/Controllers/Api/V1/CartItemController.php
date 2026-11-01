@@ -7,41 +7,47 @@ use App\Http\Requests\CartItem\StoreCartItemRequest;
 use App\Http\Requests\CartItem\UpdateCartItemRequest;
 use App\Http\Resources\CartItemResource;
 use App\Models\CartItem;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class CartItemController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCartItemRequest $request)
+    public function store(StoreCartItemRequest $request): CartItemResource|JsonResponse
     {
         $this->authorize('create', CartItem::class);
 
         $validated = $request->validated();
 
-        $userCart = $request->user()->cart;
+        [$cartItem, $created] = DB::transaction(function () use ($request, $validated): array {
+            $userCart = $request->user()->cart()
+                ->lockForUpdate()
+                ->firstOrFail();
 
-        $existing = CartItem::query()
-            ->where('product_id', $validated['product_id'])
-            ->where('cart_id', $userCart->id)
-            ->first();
-            
+            $existing = $userCart->cartItems()
+                ->where('product_id', $validated['product_id'])
+                ->lockForUpdate()
+                ->first();
 
-        if ($existing) {
-            $existing->quantity += $validated['quantity'];
+            if ($existing !== null) {
+                $existing->quantity += $validated['quantity'];
+                $existing->save();
 
-            $existing->save();
+                return [$existing, false];
+            }
 
-            $existing->load('product.category');
+            return [$userCart->cartItems()->create($validated), true];
+        });
 
-            return CartItemResource::make($existing);
-        } 
-
-
-        $cartItem = $userCart->cartItems()->create($validated);
         $cartItem->load('product.category');
 
-        return (CartItemResource::make($cartItem))
+        if (! $created) {
+            return CartItemResource::make($cartItem);
+        }
+
+        return CartItemResource::make($cartItem)
             ->response()
             ->setStatusCode(201);
     }
