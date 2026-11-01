@@ -40,6 +40,10 @@ return [
         'api_key' => env('CLOUDINARY_API_KEY'),
         'api_secret' => env('CLOUDINARY_API_SECRET'),
         'folder' => env('CLOUDINARY_FOLDER'),
-    ]
+    ],
+
+    'mock_payment' => [
+        'outcome' => env('MOCK_PAYMENT_OUTCOME', 'paid'),
+    ],
 
 ];
