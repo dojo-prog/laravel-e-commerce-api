@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\Payments\PaymentGateway;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -28,6 +29,7 @@ use App\Policies\PaymentPolicy;
 use App\Policies\ProductImagePolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\UserPolicy;
+use App\Services\Payments\MockPaymentGateway;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -39,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(PaymentGateway::class, MockPaymentGateway::class);
     }
 
     /**
